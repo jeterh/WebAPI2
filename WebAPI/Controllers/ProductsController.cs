@@ -16,7 +16,10 @@ namespace WebAPI.Controllers
     {
         private FabricsEntities db = new FabricsEntities();
 
-
+        /// <summary>
+        /// 取得所有商品
+        /// </summary>
+        /// <returns></returns>
         // GET: api/Products
         public IQueryable<Product> GetProduct()
         {
@@ -28,6 +31,11 @@ namespace WebAPI.Controllers
             db.Configuration.LazyLoadingEnabled = false;
         }
 
+        /// <summary>
+        /// 取得特定商品 By ID
+        /// </summary>
+        /// <param name="id">ProductId</param>
+        /// <returns></returns>
         // GET: api/Products/5
         [ResponseType(typeof(Product))]
         public IHttpActionResult GetProduct(int id)

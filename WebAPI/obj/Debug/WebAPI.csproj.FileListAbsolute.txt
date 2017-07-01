@@ -174,3 +174,4 @@ C:\Users\Jeter\Documents\Visual Studio 2017\Projects\WebAPI\WebAPI2\WebAPI\bin\z
 C:\Users\Jeter\Documents\Visual Studio 2017\Projects\WebAPI\WebAPI2\WebAPI\obj\Debug\WebAPI.csprojResolveAssemblyReference.cache
 C:\Users\Jeter\Documents\Visual Studio 2017\Projects\WebAPI\WebAPI2\WebAPI\obj\Debug\WebAPI.dll
 C:\Users\Jeter\Documents\Visual Studio 2017\Projects\WebAPI\WebAPI2\WebAPI\obj\Debug\WebAPI.pdb
+C:\Users\Jeter\Documents\Visual Studio 2017\Projects\WebAPI\WebAPI2\WebAPI\bin\WebAPI.xml
