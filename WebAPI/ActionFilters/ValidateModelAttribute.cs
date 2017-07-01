@@ -15,7 +15,13 @@ namespace WebAPI.ActionFilters
          {
              if (actionContext.ModelState.IsValid == false)
              {
-                 actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.BadRequest, actionContext.ModelState);
+                //actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.BadRequest, actionContext.ModelState);
+                actionContext.Response = actionContext.Request.CreateResponse
+                    (HttpStatusCode.BadRequest, new
+                    {
+                        Message = "資料驗證失敗",
+                        Error = actionContext.ModelState
+                    });
              }
              base.OnActionExecuting(actionContext);
          }
