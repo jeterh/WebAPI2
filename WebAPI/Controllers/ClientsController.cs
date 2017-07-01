@@ -20,6 +20,7 @@ namespace WebAPI.Controllers
 
         // GET: api/Clients
         [EnableCors("http://localhost:54657", "*", "*")]
+        [Authorize(Roles = "admin")]
         public IQueryable<Client> GetClient()
         {
             return db.Client;

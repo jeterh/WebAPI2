@@ -8,8 +8,8 @@ namespace WebAPI
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
-            filters.Add(new MyExceptionAttribute());
-            //filters.Add(new HandleErrorAttribute());
+            //filters.Add(new MyExceptionAttribute());
+            filters.Add(new HandleErrorAttribute());
         }
     }
 }
