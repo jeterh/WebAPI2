@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FabricsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Client">
+    <Key>
+      <PropertyRef Name="ClientId" />
+    </Key>
+    <Property Name="ClientId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FirstName" Type="varchar" MaxLength="40" />
+    <Property Name="MiddleName" Type="varchar" MaxLength="40" />
+    <Property Name="LastName" Type="varchar" MaxLength="40" />
+    <Property Name="Gender" Type="char" MaxLength="1" />
+    <Property Name="DateOfBirth" Type="datetime" />
+    <Property Name="CreditRating" Type="float" />
+    <Property Name="XCode" Type="char" MaxLength="7" />
+    <Property Name="OccupationId" Type="int" />
+    <Property Name="TelephoneNumber" Type="varchar" MaxLength="20" />
+    <Property Name="Street1" Type="varchar" MaxLength="100" />
+    <Property Name="Street2" Type="varchar" MaxLength="100" />
+    <Property Name="City" Type="varchar" MaxLength="100" />
+    <Property Name="ZipCode" Type="varchar" MaxLength="15" />
+    <Property Name="Longitude" Type="float" />
+    <Property Name="Latitude" Type="float" />
+    <Property Name="Notes" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="Occupation">
+    <Key>
+      <PropertyRef Name="OccupationId" />
+    </Key>
+    <Property Name="OccupationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OccupationName" Type="varchar" MaxLength="60" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="OrderId" />
+    </Key>
+    <Property Name="OrderId" Type="int" Nullable="false" />
+    <Property Name="ClientId" Type="int" />
+    <Property Name="OrderDate" Type="datetime" />
+    <Property Name="OrderTotal" Type="numeric" Precision="18" Scale="2" />
+    <Property Name="OrderStatus" Type="char" MaxLength="1" />
+  </EntityType>
+  <EntityType Name="OrderLine">
+    <Key>
+      <PropertyRef Name="OrderId" />
+      <PropertyRef Name="LineNumber" />
+    </Key>
+    <Property Name="OrderId" Type="int" Nullable="false" />
+    <Property Name="LineNumber" Type="int" Nullable="false" />
+    <Property Name="ProductId" Type="int" Nullable="false" />
+    <Property Name="Qty" Type="numeric" Precision="18" Scale="3" Nullable="false" />
+    <Property Name="LineTotal" Type="numeric" Precision="18" Scale="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="ProductId" />
+    </Key>
+    <Property Name="ProductId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProductName" Type="varchar" MaxLength="80" />
+    <Property Name="Price" Type="smallmoney" />
+    <Property Name="Active" Type="bit" />
+    <Property Name="Stock" Type="numeric" Precision="18" Scale="3" />
+  </EntityType>
+  <Association Name="FK_Client_Occupation">
+    <End Role="Occupation" Type="Self.Occupation" Multiplicity="0..1" />
+    <End Role="Client" Type="Self.Client" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Occupation">
+        <PropertyRef Name="OccupationId" />
+      </Principal>
+      <Dependent Role="Client">
+        <PropertyRef Name="OccupationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Order_ClientId">
+    <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Client">
+        <PropertyRef Name="ClientId" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="ClientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_OrderLine_OrderId">
+    <End Role="Order" Type="Self.Order" Multiplicity="1" />
+    <End Role="OrderLine" Type="Self.OrderLine" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="OrderId" />
+      </Principal>
+      <Dependent Role="OrderLine">
+        <PropertyRef Name="OrderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_OrderLine_ProductId">
+    <End Role="Product" Type="Self.Product" Multiplicity="1" />
+    <End Role="OrderLine" Type="Self.OrderLine" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ProductId" />
+      </Principal>
+      <Dependent Role="OrderLine">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="FabricsModelStoreContainer">
+    <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Occupation" EntityType="Self.Occupation" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OrderLine" EntityType="Self.OrderLine" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Client_Occupation" Association="Self.FK_Client_Occupation">
+      <End Role="Occupation" EntitySet="Occupation" />
+      <End Role="Client" EntitySet="Client" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Order_ClientId" Association="Self.fk_Order_ClientId">
+      <End Role="Client" EntitySet="Client" />
+      <End Role="Order" EntitySet="Order" />
+    </AssociationSet>
+    <AssociationSet Name="fk_OrderLine_OrderId" Association="Self.fk_OrderLine_OrderId">
+      <End Role="Order" EntitySet="Order" />
+      <End Role="OrderLine" EntitySet="OrderLine" />
+    </AssociationSet>
+    <AssociationSet Name="fk_OrderLine_ProductId" Association="Self.fk_OrderLine_ProductId">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="OrderLine" EntitySet="OrderLine" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
