@@ -31,7 +31,7 @@ namespace WebAPI.Controllers
         [ResponseType(typeof(Client))]
         [Route("clients/{id:int}", Name = "GetClientById")]
         //public IHttpActionResult GetClient(int id)
-        public Client GetClient(int id)
+        public HttpResponseMessage GetClient(int id)
         {
             Client client = db.Client.Find(id);
             //if (client == null)
@@ -40,7 +40,17 @@ namespace WebAPI.Controllers
             //}
 
             //return Ok(client);
-            return client;
+            //return client;
+
+            if (client == null)
+            {
+                return new HttpResponseMessage()
+                {
+                        StatusCode = HttpStatusCode.NotFound
+                };
+            }
+            
+            return Request.CreateResponse(HttpStatusCode.OK, client);
         }
 
         // PUT: api/Clients/5
