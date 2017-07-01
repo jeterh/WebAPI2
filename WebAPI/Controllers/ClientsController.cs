@@ -22,6 +22,11 @@ namespace WebAPI.Controllers
             return db.Client;
         }
 
+        public ClientsController()
+        {
+            db.Configuration.LazyLoadingEnabled = false;
+        }
+
         // GET: api/Clients/5
         [ResponseType(typeof(Client))]
         public IHttpActionResult GetClient(int id)
@@ -114,5 +119,13 @@ namespace WebAPI.Controllers
         {
             return db.Client.Count(e => e.ClientId == id) > 0;
         }
+
+        //[Route("clients/{id:int}/orders")]
+        //public IHttpActionResult GetOrdersByClientId(int id)
+        //{
+        //    var orders = db.Order
+        //        .Where(p => p.ClientId == id);
+        //    return Ok(orders);
+        //}
     }
 }
