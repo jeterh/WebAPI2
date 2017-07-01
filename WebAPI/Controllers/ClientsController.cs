@@ -120,12 +120,36 @@ namespace WebAPI.Controllers
             return db.Client.Count(e => e.ClientId == id) > 0;
         }
 
-        //[Route("clients/{id:int}/orders")]
-        //public IHttpActionResult GetOrdersByClientId(int id)
-        //{
-        //    var orders = db.Order
-        //        .Where(p => p.ClientId == id);
-        //    return Ok(orders);
-        //}
+        [Route("clients/{id:int}/orders")]
+        public IHttpActionResult GetOrdersByClientId(int id)
+         {
+             var orders = db.Order
+                 .Where(p => p.ClientId == id);
+             return Ok(orders);
+         }
+ 
+         [Route("clients/{id:int}/orders/{oid:int}")]
+         public IHttpActionResult GetOrdersByClientIdOrderId(int id, int oid)
+         {
+             var orders = db.Order
+                 .Where(p => p.ClientId == id && p.OrderId == oid);
+             return Ok(orders);
+         }
+ 
+         [Route("clients/{id:int}/orders/{status:alpha:length(1)}")]
+         public IHttpActionResult GetOrdersByClientIdOrderStatus(int id, string status)
+         {
+             var orders = db.Order
+                 .Where(p => p.ClientId == id && p.OrderStatus == status);
+             return Ok(orders);
+         }
+ 
+         [Route("clients/{id:int}/orders/{*odate:datetime}")]
+         public IHttpActionResult GetOrdersByClientIdOrderDate(int id, DateTime odate)
+         {
+             var orders = db.Order
+                 .Where(p => p.ClientId == id && p.OrderDate > odate);
+             return Ok(orders);
+         }
     }
 }
