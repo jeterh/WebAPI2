@@ -10,6 +10,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using WebAPI.ActionFilters;
 using WebAPI.Models;
+using System.Web.Http.Cors;
 
 namespace WebAPI.Controllers
 {
@@ -18,6 +19,7 @@ namespace WebAPI.Controllers
         private FabricsEntities db = new FabricsEntities();
 
         // GET: api/Clients
+        [EnableCors("http://localhost:54657", "*", "*")]
         public IQueryable<Client> GetClient()
         {
             return db.Client;
