@@ -21,6 +21,7 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <returns></returns>
         // GET: api/Products
+        [Route("products")]
         public IQueryable<Product> GetProduct()
         {
             return db.Product;
@@ -38,6 +39,7 @@ namespace WebAPI.Controllers
         /// <returns></returns>
         // GET: api/Products/5
         [ResponseType(typeof(Product))]
+        [Route("products/{id}")]
         public IHttpActionResult GetProduct(int id)
         {
             Product product = db.Product.Find(id);
@@ -49,8 +51,17 @@ namespace WebAPI.Controllers
             return Ok(product);
         }
 
+        [ResponseType(typeof(Product))]
+        [ResponseType(typeof(IQueryable<OrderLine>))]
+        public IHttpActionResult GetProductOrderLines(int id)
+        {
+            var orderlines = db.OrderLine.Where(p => p.ProductId == id);
+             return Ok(orderlines);
+        }
+
         // PUT: api/Products/5
         [ResponseType(typeof(void))]
+        [Route("products/{id}")]
         public IHttpActionResult PutProduct(int id, Product product)
         {
             if (!ModelState.IsValid)
@@ -86,6 +97,7 @@ namespace WebAPI.Controllers
 
         // POST: api/Products
         [ResponseType(typeof(Product))]
+        [Route("products")]
         public IHttpActionResult PostProduct(Product product)
         {
             if (!ModelState.IsValid)
@@ -101,6 +113,7 @@ namespace WebAPI.Controllers
 
         // DELETE: api/Products/5
         [ResponseType(typeof(Product))]
+        [Route("products/{id}")]
         public IHttpActionResult DeleteProduct(int id)
         {
             Product product = db.Product.Find(id);
