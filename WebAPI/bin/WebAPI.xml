@@ -491,7 +491,7 @@
             <summary>
             取得特定商品 By ID
             </summary>
-            <param name="id"></param>
+            <param name="id">ProductId</param>
             <returns></returns>
         </member>
     </members>
