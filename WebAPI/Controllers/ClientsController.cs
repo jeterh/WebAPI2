@@ -92,6 +92,7 @@ namespace WebAPI.Controllers
         // POST: api/Clients
         [ResponseType(typeof(Client))]
         [ValidateModel]
+        [MyException]
         public IHttpActionResult PostClient(Client client)
         {
             //if (!ModelState.IsValid)

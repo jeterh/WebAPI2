@@ -1,5 +1,6 @@
 ﻿using System.Web;
 using System.Web.Mvc;
+using WebAPI.ActionFilters;
 
 namespace WebAPI
 {
@@ -7,7 +8,8 @@ namespace WebAPI
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
-            filters.Add(new HandleErrorAttribute());
+            filters.Add(new MyExceptionAttribute());
+            //filters.Add(new HandleErrorAttribute());
         }
     }
 }
