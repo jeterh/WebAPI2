@@ -29,15 +29,18 @@ namespace WebAPI.Controllers
 
         // GET: api/Clients/5
         [ResponseType(typeof(Client))]
-        public IHttpActionResult GetClient(int id)
+        [Route("clients/{id:int}", Name = "GetClientById")]
+        //public IHttpActionResult GetClient(int id)
+        public Client GetClient(int id)
         {
             Client client = db.Client.Find(id);
-            if (client == null)
-            {
-                return NotFound();
-            }
+            //if (client == null)
+            //{
+            //    return NotFound();
+            //}
 
-            return Ok(client);
+            //return Ok(client);
+            return client;
         }
 
         // PUT: api/Clients/5
@@ -123,9 +126,15 @@ namespace WebAPI.Controllers
         [Route("clients/{id:int}/orders")]
         public IHttpActionResult GetOrdersByClientId(int id)
          {
-             var orders = db.Order
+            var orders = db.Order
                  .Where(p => p.ClientId == id);
-             return Ok(orders);
+
+            if (!orders.Any())
+            {
+                return RedirectToRoute("GetClientById", new { id = id });
+            }
+
+            return Ok(orders);
          }
  
          [Route("clients/{id:int}/orders/{oid:int}")]
