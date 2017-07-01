@@ -8,6 +8,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using WebAPI.ActionFilters;
 using WebAPI.Models;
 
 namespace WebAPI.Controllers
@@ -90,12 +91,13 @@ namespace WebAPI.Controllers
 
         // POST: api/Clients
         [ResponseType(typeof(Client))]
+        [ValidateModel]
         public IHttpActionResult PostClient(Client client)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return BadRequest(ModelState);
+            //}
 
             db.Client.Add(client);
             db.SaveChanges();
